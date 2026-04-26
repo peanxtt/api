@@ -3,9 +3,9 @@ import type { ContentfulStatusCode } from 'hono/utils/http-status';
 
 import type { AppEnv } from '../types/bindings';
 
-export type ApiErrorPayload = {
-  code: string;
-  message: string;
+export type ApiErrorDetails = {
+  fieldErrors?: Record<string, string[]>;
+  [key: string]: unknown;
 };
 
 export const successResponse = <T>(data: T) => ({
@@ -13,12 +13,15 @@ export const successResponse = <T>(data: T) => ({
   data,
 });
 
-export const errorResponse = (code: string, message: string) => ({
+export const errorResponse = (
+  error: string,
+  code: string,
+  details?: ApiErrorDetails,
+) => ({
   success: false as const,
-  error: {
-    code,
-    message,
-  },
+  error,
+  code,
+  ...(details ? { details } : {}),
 });
 
 export const jsonSuccess = <T>(
@@ -31,5 +34,6 @@ export const jsonError = (
   c: Context<AppEnv>,
   status: ContentfulStatusCode,
   code: string,
-  message: string,
-) => c.json(errorResponse(code, message), status);
+  error: string,
+  details?: ApiErrorDetails,
+) => c.json(errorResponse(error, code, details), status);

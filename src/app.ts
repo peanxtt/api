@@ -4,18 +4,18 @@ import { jsonSuccess } from './lib/response';
 import { corsMiddleware } from './middleware/cors';
 import { registerErrorHandler } from './middleware/error-handler';
 import { requestLogger } from './middleware/logger';
-import coffeeWikiRoutes from './modules/coffee-wiki/routes';
-import invoiceGeneratorRoutes from './modules/invoice-generator/routes';
-import personalSiteRoutes from './modules/personal-site/routes';
+import coffeeRoutes from './modules/coffee/routes';
+import personalRoutes from './modules/personal/routes';
 import type { AppEnv } from './types/bindings';
 
 const app = new Hono<AppEnv>();
 const apiV1 = new Hono<AppEnv>();
+const personalApi = new Hono<AppEnv>();
+const coffeeApi = new Hono<AppEnv>();
 
 registerErrorHandler(app);
 
 app.use('*', requestLogger);
-app.use('/api/*', corsMiddleware);
 
 app.get('/api/v1/health', (c) =>
   jsonSuccess(c, {
@@ -25,9 +25,21 @@ app.get('/api/v1/health', (c) =>
   }),
 );
 
-apiV1.route('/', personalSiteRoutes);
-apiV1.route('/', invoiceGeneratorRoutes);
-apiV1.route('/', coffeeWikiRoutes);
+personalApi.use('*', corsMiddleware);
+coffeeApi.use('*', corsMiddleware);
+
+personalApi.route('/', personalRoutes);
+coffeeApi.route('/', coffeeRoutes);
+
+apiV1.route('/personal', personalApi);
+apiV1.route('/coffee', coffeeApi);
+
+app.get('/api/docs', (c) =>
+  jsonSuccess(c, {
+    status: 'pending',
+    message: 'OpenAPI/Swagger bootstrap route is active. Full documentation is scheduled for Phase 8.',
+  }),
+);
 
 app.route('/api/v1', apiV1);
 

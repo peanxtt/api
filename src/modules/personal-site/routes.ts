@@ -6,12 +6,12 @@ import { getPersonalProfile, getPersonalProjects } from './service';
 
 const personalSiteRoutes = new Hono<AppEnv>();
 
-personalSiteRoutes.get('/personal/profile', async (c) => {
+personalSiteRoutes.get('/profile', async (c) => {
   const profile = await getPersonalProfile();
   return jsonSuccess(c, profile);
 });
 
-personalSiteRoutes.get('/personal/projects', async (c) => {
+personalSiteRoutes.get('/projects', async (c) => {
   const projects = await getPersonalProjects();
   return jsonSuccess(c, projects);
 });

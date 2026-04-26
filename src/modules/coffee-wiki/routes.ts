@@ -9,12 +9,12 @@ import { createWikiEntry, listWikiEntries } from './service';
 
 const coffeeWikiRoutes = new Hono<AppEnv>();
 
-coffeeWikiRoutes.get('/coffee/wiki', async (c) => {
+coffeeWikiRoutes.get('/wiki', async (c) => {
   const entries = await listWikiEntries();
   return jsonSuccess(c, entries);
 });
 
-coffeeWikiRoutes.post('/coffee/wiki', authGuard, validateJson(createCoffeeWikiEntrySchema), async (c) => {
+coffeeWikiRoutes.post('/wiki', authGuard, validateJson(createCoffeeWikiEntrySchema), async (c) => {
   const body = c.req.valid('json');
   const entry = await createWikiEntry(body);
   return jsonSuccess(c, entry, 201);
