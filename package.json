@@ -10,12 +10,22 @@
     "lint": "eslint . --ext .ts",
     "format": "prettier . --write",
     "cf-typegen": "wrangler types",
+    "prisma:generate:personal": "prisma generate --config prisma/personal.prisma.config.ts",
+    "prisma:generate:coffee": "prisma generate --config prisma/coffee.prisma.config.ts",
+    "prisma:generate": "prisma generate --config prisma/personal.prisma.config.ts && prisma generate --config prisma/coffee.prisma.config.ts",
+    "prisma:migrate:personal": "prisma migrate dev --config prisma/personal.prisma.config.ts",
+    "prisma:migrate:coffee": "prisma migrate dev --config prisma/coffee.prisma.config.ts",
+    "prisma:pull:personal": "prisma db pull --config prisma/personal.prisma.config.ts",
+    "prisma:pull:coffee": "prisma db pull --config prisma/coffee.prisma.config.ts",
+    "security:audit": "npm audit --audit-level=moderate",
+    "security:audit:prod": "npm audit --omit=dev --audit-level=moderate",
     "prepare": "husky"
   },
   "dependencies": {
     "@hono/swagger-ui": "^0.5.2",
     "@hono/zod-openapi": "^0.18.4",
     "@hono/zod-validator": "^0.7.5",
+    "@prisma/client": "^7.8.0",
     "@supabase/supabase-js": "^2.49.8",
     "hono": "^4.10.1",
     "zod": "^3.25.7"
@@ -26,10 +36,12 @@
     "@eslint/js": "^9.23.0",
     "@typescript-eslint/eslint-plugin": "^8.30.1",
     "@typescript-eslint/parser": "^8.30.1",
+    "dotenv": "^17.4.2",
     "eslint": "^9.23.0",
     "eslint-config-prettier": "^10.1.1",
     "husky": "^9.1.7",
     "prettier": "^3.5.3",
+    "prisma": "^7.8.0",
     "typescript": "^5.8.3",
     "wrangler": "^4.11.1"
   }

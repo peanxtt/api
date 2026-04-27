@@ -6,6 +6,7 @@ dist/
 build/
 coverage/
 *.tsbuildinfo
+src/generated/prisma/
 
 # Cloudflare Workers
 .wrangler/
