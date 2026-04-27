@@ -1,5 +1,6 @@
 import type { MiddlewareHandler } from 'hono';
 
+import { verifyAccessToken } from '../lib/auth/jwt';
 import { jsonError } from '../lib/response';
 import type { AppEnv } from '../types/bindings';
 
@@ -16,8 +17,29 @@ export const authGuard: MiddlewareHandler<AppEnv> = async (c, next) => {
     return jsonError(c, 401, 'UNAUTHORIZED', 'Bearer token is missing.');
   }
 
-  // TODO: Verify Supabase JWT signature/claims using SUPABASE_JWT_SECRET.
-  c.set('authToken', token);
+  try {
+    const identity = await verifyAccessToken(token, c.env);
+    c.set('authToken', token);
+    c.set('userId', identity.userId);
+    c.set('email', identity.email);
+  } catch {
+    return jsonError(c, 401, 'UNAUTHORIZED', 'Invalid or expired access token.');
+  }
 
   await next();
+};
+
+export const forbidCrossUserAccess = (
+  actorUserId: string | undefined,
+  resourceUserId: string,
+) => {
+  if (!actorUserId || actorUserId !== resourceUserId) {
+    return {
+      status: 403 as const,
+      code: 'FORBIDDEN',
+      error: 'You do not have access to this resource.',
+    };
+  }
+
+  return null;
 };
