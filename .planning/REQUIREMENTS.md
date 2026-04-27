@@ -22,9 +22,9 @@
 
 ### Personal Domain - Core Records
 
-- [ ] **PERS-01**: Users can update their own profile (`PATCH /personal/users/me`).
-- [ ] **PERS-02**: Clients CRUD and archive/activate behaviors match migration spec.
-- [ ] **PERS-03**: Settings supports upsert (`GET/PUT/DELETE /personal/settings`).
+- [x] **PERS-01**: Users can update their own profile (`PATCH /personal/users/me`).
+- [x] **PERS-02**: Clients CRUD and archive/activate behaviors match migration spec.
+- [x] **PERS-03**: Settings supports upsert (`GET/PUT/DELETE /personal/settings`).
 - [ ] **PERS-04**: Projects CRUD plus archive/unarchive and progress recalculation are implemented.
 - [ ] **PERS-05**: Tasks CRUD with status/position/reorder/archive endpoints are implemented.
 - [ ] **PERS-06**: Task blocker relations enforce no self-reference and no direct circular links.
@@ -103,9 +103,9 @@
 | DATA-02 | Phase 3 | Complete |
 | DATA-03 | Phase 3 | Complete |
 | DATA-04 | Phase 3 | Complete |
-| PERS-01 | Phase 4 | Pending |
-| PERS-02 | Phase 4 | Pending |
-| PERS-03 | Phase 4 | Pending |
+| PERS-01 | Phase 4 | Complete |
+| PERS-02 | Phase 4 | Complete |
+| PERS-03 | Phase 4 | Complete |
 | FIN-01 | Phase 5 | Pending |
 | FIN-02 | Phase 5 | Pending |
 | FIN-03 | Phase 5 | Pending |

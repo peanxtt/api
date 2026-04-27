@@ -64,6 +64,7 @@ UI hint: no
 ### Phase 4: Personal Core Migration I
 Goal: Migrate user profile, clients, and settings APIs.
 Requirements: PERS-01, PERS-02, PERS-03
+Status: Complete (2026-04-28)
 Success criteria:
 1. `/personal/users/me` supports current frontend update flow.
 2. `/personal/clients` CRUD + archive/activate follows spec semantics.
@@ -144,4 +145,4 @@ UI hint: no
 | Docs drift from implementation | 8 | Generate OpenAPI from source schemas + CI check |
 
 ---
-*Last updated: 2026-04-27 after Phase 3 completion*
+*Last updated: 2026-04-28 after Phase 4 completion*
