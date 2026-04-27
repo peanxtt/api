@@ -5,7 +5,12 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default [
   {
-    ignores: ['node_modules/**', '.wrangler/**', 'worker-configuration.d.ts'],
+    ignores: [
+      'node_modules/**',
+      '.wrangler/**',
+      'worker-configuration.d.ts',
+      'src/generated/prisma/**',
+    ],
   },
   js.configs.recommended,
   {

@@ -14,6 +14,8 @@ One deployable API platform that keeps shared personal APIs reusable while prese
 
 - [x] Namespaced API shape already exists with `/api/v1/personal/*` and `/api/v1/coffee/*` in current routes.
 - [x] Phase 1 contract foundation completed (route ownership, envelope normalization, validation details) - Phase 1 (2026-04-27).
+- [x] Phase 2 auth guardrails completed (`AUTH-01`..`AUTH-04`) including local JWT verification, identity context, auth endpoints, and login throttling - Phase 2 (2026-04-27).
+- [x] Phase 3 data-layer foundation completed (`DATA-01`..`DATA-04`) with dual-domain Prisma schemas, shared gateway contract, scoped repository rules, and migration rollback governance - Phase 3 (2026-04-27).
 
 ### Active
 
@@ -55,6 +57,8 @@ One deployable API platform that keeps shared personal APIs reusable while prese
 | Contract-first via Zod + OpenAPI | Prevent drift between implementation and docs | PENDING |
 | Keep standardized response envelope | Simplifies frontend adapters and migration safety | GOOD |
 | Add migration compatibility layer where needed | Avoid frontend breakage during endpoint cutover | PENDING |
+| Verify Supabase access tokens locally and inject trusted request identity | Enforce auth at middleware layer and prevent payload-based identity spoofing | GOOD |
+| Use separate personal and coffee Prisma schema/client/migration streams | Preserve hard domain boundaries while sharing one deployable API runtime | GOOD |
 
 ## Evolution
 
@@ -74,4 +78,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-27 after Phase 1 completion*
+*Last updated: 2026-04-27 after Phase 3 completion*

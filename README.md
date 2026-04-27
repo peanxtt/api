@@ -1,160 +1,62 @@
 # personal-api-hub
 
-Centralized API hub built with Hono + TypeScript for Cloudflare Workers.
+Unified API backend for personal systems and coffee wiki, built on Hono + TypeScript for Cloudflare Workers.
 
-## Tech stack
+## System Summary
 
-- Runtime: Cloudflare Workers (Edge)
+This project provides one deployable API platform with strict domain boundaries:
+- Personal domain APIs under `/api/v1/personal/*`
+- Coffee domain APIs under `/api/v1/coffee/*`
+
+Core design goals:
+- Shared platform primitives (validation, response envelope, middleware)
+- Strong auth/identity guardrails
+- Domain isolation to prevent cross-domain leakage
+- Contract-driven implementation for predictable migrations
+
+## Current Architecture
+
+- Runtime: Cloudflare Workers
 - Framework: Hono
-- Language: TypeScript (strict mode)
 - Validation: Zod
-- Database/Auth provider: Supabase
-- Package manager: pnpm
+- Auth/data provider: Supabase
+- Data-layer direction: dual-domain Prisma foundation (personal + coffee)
 
-## Project structure
+## Repository Layout (High Level)
 
 ```txt
-personal-api-hub/
-  src/
-    index.ts
-    app.ts
-    config/
-      env.ts
-    lib/
-      supabase.ts
-      response.ts
-      validation.ts
-    middleware/
-      cors.ts
-      error-handler.ts
-      logger.ts
-      auth.ts
-    modules/
-      personal-site/
-        routes.ts
-        service.ts
-        schema.ts
-      invoice-generator/
-        routes.ts
-        service.ts
-        schema.ts
-      coffee-wiki/
-        routes.ts
-        service.ts
-        schema.ts
-    types/
-      bindings.ts
+src/
+  app.ts
+  config/
+  lib/
+  middleware/
+  modules/
+    personal/
+    coffee/
+prisma/
+  personal/
+  coffee/
+.planning/
+  ROADMAP.md
+  REQUIREMENTS.md
+  STATE.md
 ```
 
-## API routes (v1)
+## Development Workflow
 
-- `GET /api/v1/health`
-- `GET /api/v1/personal/profile`
-- `GET /api/v1/personal/projects`
-- `GET /api/v1/invoices`
-- `POST /api/v1/invoices`
-- `GET /api/v1/invoices/:id`
-- `PATCH /api/v1/invoices/:id`
-- `DELETE /api/v1/invoices/:id`
-- `POST /api/v1/invoices/:id/generate-receipt`
-- `GET /api/v1/blogposts`
-- `POST /api/v1/blogposts`
-- `GET /api/v1/coffee/wiki`
-- `POST /api/v1/coffee/wiki`
+1. Discuss phase goals and lock decisions.
+2. Plan phase tasks/waves.
+3. Execute phase plans.
+4. Verify and transition to the next phase.
 
-## Local setup
+Primary quality checks:
+- Type safety (`tsc --noEmit`)
+- Linting (`eslint`)
+- Phase-level verification artifacts in `.planning/phases/*`
 
-1. Install dependencies:
+## Security Note
 
-```bash
-pnpm install
-```
+Do not commit secrets, tokens, database URLs, or credential values to git.
+Keep sensitive runtime configuration in local/deployment secret stores only.
 
-2. Create local env file for Wrangler:
-
-```bash
-cp .env.example .dev.vars
-```
-
-3. Fill in `.dev.vars` values.
-
-4. Generate worker type definitions:
-
-```bash
-pnpm cf-typegen
-```
-
-5. Start local dev server:
-
-```bash
-pnpm dev
-```
-
-## Environment variables
-
-Use `.dev.vars` for local development and Cloudflare secrets/vars for deployed environments:
-
-- `SUPABASE_URL`
-- `SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY`
-- `SUPABASE_JWT_SECRET`
-- `FRONTEND_ORIGINS` (comma-separated origins)
-
-## Cloudflare secrets setup
-
-Set sensitive values as Worker secrets:
-
-```bash
-wrangler secret put SUPABASE_URL
-wrangler secret put SUPABASE_ANON_KEY
-wrangler secret put SUPABASE_SERVICE_ROLE_KEY
-wrangler secret put SUPABASE_JWT_SECRET
-```
-
-Set non-sensitive vars in `wrangler.jsonc` or by dashboard/environment config.
-
-## Deployment
-
-Manual deploy:
-
-```bash
-pnpm deploy
-```
-
-## GitHub Actions setup
-
-This project includes `.github/workflows/ci-cd.yml`:
-
-- On pull request: install dependencies, lint, typecheck.
-- On push to `main`: install dependencies, lint, typecheck, deploy.
-
-Required repository secrets:
-
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
-
-## Custom domain: `api.huashengtan.com`
-
-Recommended approach:
-
-1. Deploy the worker at least once (`pnpm deploy`).
-2. In Cloudflare dashboard, add a custom domain for this Worker: `api.huashengtan.com`.
-3. Ensure DNS has proxied record in Cloudflare.
-
-### Recommended DNS setup
-
-- Type: `CNAME`
-- Name: `api`
-- Target: `<worker-subdomain>.workers.dev`
-- Proxy status: `Proxied` (orange cloud)
-
-Cloudflare will manage TLS automatically for the custom domain once attached.
-
-## Husky + Commitlint
-
-Commit messages are validated via Husky `commit-msg` hook using Conventional Commits.
-
-Examples:
-
-- `feat(invoices): add receipt generation endpoint`
-- `fix(auth): validate bearer token format`
+For local private setup guidance, use project-internal setup docs and local env files that are gitignored.

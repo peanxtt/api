@@ -42,6 +42,7 @@ UI hint: no
 ### Phase 2: Auth and Identity Guardrails
 Goal: Protect resources with authenticated and user-scoped access semantics.
 Requirements: AUTH-01, AUTH-02, AUTH-03, AUTH-04
+Status: Complete (2026-04-27)
 Success criteria:
 1. Bearer token parsing and Supabase verification is centralized.
 2. Request context carries trusted user identity for all protected handlers.
@@ -52,6 +53,7 @@ UI hint: no
 ### Phase 3: Supabase + Prisma Data Layer
 Goal: Create stable repository boundary and schema migration path.
 Requirements: DATA-01, DATA-02, DATA-03, DATA-04
+Status: Complete (2026-04-27)
 Success criteria:
 1. Prisma models cover personal + coffee entities used in v1.
 2. Worker-compatible Prisma strategy is selected and documented.
@@ -142,4 +144,4 @@ UI hint: no
 | Docs drift from implementation | 8 | Generate OpenAPI from source schemas + CI check |
 
 ---
-*Last updated: 2026-04-26 after roadmap creation*
+*Last updated: 2026-04-27 after Phase 3 completion*

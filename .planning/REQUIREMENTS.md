@@ -15,10 +15,10 @@
 
 ### Authentication and Authorization
 
-- [ ] **AUTH-01**: Protected endpoints require `Authorization: Bearer <supabase_access_token>`.
-- [ ] **AUTH-02**: Server resolves user identity from token and never accepts `userId` from request payload.
-- [ ] **AUTH-03**: Cross-user resource access is blocked and returns `FORBIDDEN`.
-- [ ] **AUTH-04**: Auth endpoints support login/logout/me semantics required by current frontend.
+- [x] **AUTH-01**: Protected endpoints require `Authorization: Bearer <supabase_access_token>`.
+- [x] **AUTH-02**: Server resolves user identity from token and never accepts `userId` from request payload.
+- [x] **AUTH-03**: Cross-user resource access is blocked and returns `FORBIDDEN`.
+- [x] **AUTH-04**: Auth endpoints support login/logout/me semantics required by current frontend.
 
 ### Personal Domain - Core Records
 
@@ -52,10 +52,10 @@
 
 ### Data and ORM
 
-- [ ] **DATA-01**: Prisma schema models all personal and coffee tables with domain-focused organization.
-- [ ] **DATA-02**: Prisma client usage is safe for Cloudflare runtime strategy selected by the project.
-- [ ] **DATA-03**: All repository operations are user-scoped where required.
-- [ ] **DATA-04**: Migrations are versioned and include rollback notes for risky changes.
+- [x] **DATA-01**: Prisma schema models all personal and coffee tables with domain-focused organization.
+- [x] **DATA-02**: Prisma client usage is safe for Cloudflare runtime strategy selected by the project.
+- [x] **DATA-03**: All repository operations are user-scoped where required.
+- [x] **DATA-04**: Migrations are versioned and include rollback notes for risky changes.
 
 ### Quality and Operations
 
@@ -95,14 +95,14 @@
 | PLAT-03 | Phase 1 | Complete |
 | PLAT-04 | Phase 1 | Complete |
 | PLAT-05 | Phase 1 | Complete |
-| AUTH-01 | Phase 2 | Pending |
-| AUTH-02 | Phase 2 | Pending |
-| AUTH-03 | Phase 2 | Pending |
-| AUTH-04 | Phase 2 | Pending |
-| DATA-01 | Phase 3 | Pending |
-| DATA-02 | Phase 3 | Pending |
-| DATA-03 | Phase 3 | Pending |
-| DATA-04 | Phase 3 | Pending |
+| AUTH-01 | Phase 2 | Complete |
+| AUTH-02 | Phase 2 | Complete |
+| AUTH-03 | Phase 2 | Complete |
+| AUTH-04 | Phase 2 | Complete |
+| DATA-01 | Phase 3 | Complete |
+| DATA-02 | Phase 3 | Complete |
+| DATA-03 | Phase 3 | Complete |
+| DATA-04 | Phase 3 | Complete |
 | PERS-01 | Phase 4 | Pending |
 | PERS-02 | Phase 4 | Pending |
 | PERS-03 | Phase 4 | Pending |
@@ -134,5 +134,5 @@
 
 ---
 *Requirements defined: 2026-04-26*
-*Last updated: 2026-04-26 after initial definition*
+*Last updated: 2026-04-27 after Phase 3 verification*
 
